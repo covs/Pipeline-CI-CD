@@ -34,7 +34,7 @@ jobs:
         uses: docker/login-action@v2
         with:
           username: $covs #{{ secrets.DOCKER_HUB_USERNAME }}
-          password: $dckr_pat_LEGft63b6256pUhXC07Q_8kzUgo #{{ secrets.DOCKER_HUB_TOKEN }}
+          password: ${{ secrets.DOCKER_HUB_TOKEN }}
 
       - name: 🏗️ Construir imagen Docker
         run: docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/demo-api:latest .
