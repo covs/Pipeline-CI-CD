@@ -27,6 +27,7 @@ jobs:
         run: mvn clean package
 
       - name: ✅ Ejecutar pruebas
+        working-directory: demo
         run: mvn test
 
       - name: 🐳 Iniciar sesión en Docker Hub
