@@ -1,7 +1,6 @@
 package com.example.controller;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.jupiter.api.Test;
@@ -16,9 +15,8 @@ public class MyControllerTest {
     private MockMvc mockMvc;
 
     @Test
-    public void testHello() throws Exception {
-        mockMvc.perform(get("/api/hello"))
-                .andExpect(status().isOk())
-                .andExpect(content().string("Hello, World!"));
+    public void testGuessNumber() throws Exception {
+        mockMvc.perform(get("/api/guess").param("number", "5"))
+                .andExpect(status().isOk()); // Verifica que el endpoint responde con 200 OK
     }
 }
