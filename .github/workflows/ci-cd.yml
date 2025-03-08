@@ -37,7 +37,7 @@ jobs:
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
 
       - name: 🏗️ Construir imagen Docker
-        run: docker build -t $DOCKER_HUB_USERNAME/demo-api:latest .
-
+        run: docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/demo-api:latest .
+  
       - name: 📤 Subir imagen a Docker Hub
-        run: docker push $DOCKER_HUB_USERNAME/demo-api:latest
+        run: docker push ${{ secrets.DOCKER_HUB_USERNAME }}/demo-api:latest
