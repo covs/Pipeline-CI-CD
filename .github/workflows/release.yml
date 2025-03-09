@@ -29,12 +29,13 @@ jobs:
       - name: Iniciar sesión en Docker Hub
         run: echo "${{ secrets.DOCKER_HUB_TOKEN }}" | docker login -u "${{ secrets.DOCKER_HUB_USERNAME }}" --password-stdin
 
-      - name: Construir la imagen en Docker
-        working-directory: MyApiApplication
-        run: docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/myapi:${{ env.TAG_NAME }} .
-
-      - name: Publicar la imagen
-        run: docker push ${{ secrets.DOCKER_HUB_USERNAME }}/myapi:${{ env.TAG_NAME }}
+      - name: 🏗️ Construir imagen Docker
+        working-directory: demo
+        run: docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/demo-api:latest .
+  
+      - name: 📤 Subir imagen a Docker Hub
+        working-directory: demo
+        run: docker push ${{ secrets.DOCKER_HUB_USERNAME }}/demo-api:latest
 
       - name: 🚀 Crear Release en GitHub
         id: create_release
