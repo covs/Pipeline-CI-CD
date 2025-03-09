@@ -26,6 +26,16 @@ jobs:
         working-directory: demo
         run: mvn clean package
 
+      - name: Iniciar sesión en Docker Hub
+        run: echo "${{ secrets.DOCKER_HUB_TOKEN }}" | docker login -u "${{ secrets.DOCKER_HUB_USERNAME }}" --password-stdin
+
+      - name: Construir la imagen en Docker
+        working-directory: MyApiApplication
+        run: docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/myapi:${{ env.TAG_NAME }} .
+
+      - name: Publicar la imagen
+        run: docker push ${{ secrets.DOCKER_HUB_USERNAME }}/myapi:${{ env.TAG_NAME }}
+
       - name: 🚀 Crear Release en GitHub
         id: create_release
         uses: softprops/action-gh-release@v1
@@ -38,6 +48,8 @@ jobs:
 
       - name: 📤 Subir JAR al Release
         uses: actions/upload-release-asset@v1
+        env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: demo/target/demo-0.0.1-SNAPSHOT.jar
