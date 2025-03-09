@@ -19,6 +19,7 @@ jobs:
           java-version: '11'
 
       - name: Build with Maven
+        working-directory: demo
         run: mvn clean package
 
       - name: Create Release
